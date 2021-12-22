@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
@@ -10,10 +10,10 @@ import { AuthService } from '../auth.service';
   styles: [
   ]
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   
   cargando!:boolean;
-  subscription!:Subscription;
+  subscription:Subscription = new Subscription();
 
   constructor(public authService:AuthService,
               private store:Store<AppState>) { }

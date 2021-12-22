@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { IngresoEgresoService } from '../ingreso-egreso/ingreso-egreso.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor( public ingresoEgresoService:IngresoEgresoService,
+              public authService: AuthService) { }
 
   ngOnInit(): void {
+    
+    this.ingresoEgresoService.initIngresoEgresoListener();
+    
   }
 
 }

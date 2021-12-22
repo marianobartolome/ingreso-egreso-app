@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
+import { IngresoEgresoService } from 'src/app/ingreso-egreso/ingreso-egreso.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -12,15 +13,19 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   cargando!:boolean;
-  subscription!:Subscription;
+  subscription:Subscription= new Subscription();
 
   constructor(public authService:AuthService,
-              private store:Store<AppState>) { }
+              private store:Store<AppState>,
+              public ingresoEgresoService: IngresoEgresoService
+             ) { }
 
   ngOnInit(): void {
 
     this.subscription = this.store.select('ui')
       .subscribe(ui=>this.cargando=ui.isLoading);
+    
+      
   }
 
   ngOnDestroy(): void {
@@ -31,6 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     //console.log(data)
     
     this.authService.login(data.email,data.password);
+    
   }
 
 }
